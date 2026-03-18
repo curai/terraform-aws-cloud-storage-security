@@ -162,10 +162,19 @@ resource "aws_dynamodb_table" "linked_accounts" {
 
   global_secondary_index {
     name            = "CloudProvider"
-    hash_key        = "CloudProvider"
-    range_key       = "AccountId"
     projection_type = "ALL"
+
+    key_schema {
+      attribute_name = "CloudProvider"
+      key_type       = "HASH"
+    }
+
+    key_schema {
+      attribute_name = "AccountId"
+      key_type       = "RANGE"
+    }
   }
+
 
   server_side_encryption {
     enabled     = local.use_dynamo_cmk
@@ -370,9 +379,17 @@ resource "aws_dynamodb_table" "storage_analysis" {
 
   global_secondary_index {
     name            = "DateIndex"
-    hash_key        = "TrackerFlag"
-    range_key       = "ScanDate"
     projection_type = "ALL"
+
+    key_schema {
+      attribute_name = "TrackerFlag"
+      key_type       = "HASH"
+    }
+
+    key_schema {
+      attribute_name = "ScanDate"
+      key_type       = "RANGE"
+    }
   }
 
   server_side_encryption {
@@ -411,9 +428,17 @@ resource "aws_dynamodb_table" "file_count" {
 
   global_secondary_index {
     name            = "DateIndex"
-    hash_key        = "TrackerFlag"
-    range_key       = "ScanDate"
     projection_type = "ALL"
+
+    key_schema {
+      attribute_name = "TrackerFlag"
+      key_type       = "HASH"
+    }
+
+    key_schema {
+      attribute_name = "ScanDate"
+      key_type       = "RANGE"
+    }
   }
 
   server_side_encryption {
@@ -451,9 +476,17 @@ resource "aws_dynamodb_table" "agents" {
 
   global_secondary_index {
     name            = "ActiveAndDeactivationDateIndex"
-    hash_key        = "Active"
-    range_key       = "DeactivationDate"
     projection_type = "ALL"
+
+    key_schema {
+      attribute_name = "Active"
+      key_type       = "HASH"
+    }
+
+    key_schema {
+      attribute_name = "DeactivationDate"
+      key_type       = "RANGE"
+    }
   }
 
   server_side_encryption {
@@ -492,9 +525,17 @@ resource "aws_dynamodb_table" "agent_data" {
 
   global_secondary_index {
     name            = "TstpIndex"
-    hash_key        = "TrackerFlag"
-    range_key       = "Tstp"
     projection_type = "ALL"
+
+    key_schema {
+      attribute_name = "TrackerFlag"
+      key_type       = "HASH"
+    }
+
+    key_schema {
+      attribute_name = "Tstp"
+      key_type       = "RANGE"
+    }
   }
 
   server_side_encryption {
@@ -533,9 +574,17 @@ resource "aws_dynamodb_table" "bucket_scan_statistics" {
 
   global_secondary_index {
     name            = "DateIndex"
-    hash_key        = "TrackerFlag"
-    range_key       = "Date"
     projection_type = "ALL"
+
+    key_schema {
+      attribute_name = "TrackerFlag"
+      key_type       = "HASH"
+    }
+
+    key_schema {
+      attribute_name = "Date"
+      key_type       = "RANGE"
+    }
   }
 
   server_side_encryption {
@@ -569,8 +618,12 @@ resource "aws_dynamodb_table" "bucket_classification_statistics" {
 
   global_secondary_index {
     name            = "DateIndex"
-    hash_key        = "Date"
     projection_type = "ALL"
+
+    key_schema {
+      attribute_name = "Date"
+      key_type       = "HASH"
+    }
   }
 
   server_side_encryption {
@@ -645,15 +698,31 @@ resource "aws_dynamodb_table" "daily_scan_statistics" {
 
   global_secondary_index {
     name            = "ScanTypeAndScanEngine"
-    hash_key        = "ScanType"
-    range_key       = "ScanEngine"
     projection_type = "ALL"
+
+    key_schema {
+      attribute_name = "ScanType"
+      key_type       = "HASH"
+    }
+
+    key_schema {
+      attribute_name = "ScanEngine"
+      key_type       = "RANGE"
+    }
   }
   global_secondary_index {
     name            = "LastRecordDate"
-    hash_key        = "TrackerFlag"
-    range_key       = "Date"
     projection_type = "ALL"
+
+    key_schema {
+      attribute_name = "TrackerFlag"
+      key_type       = "HASH"
+    }
+
+    key_schema {
+      attribute_name = "Date"
+      key_type       = "RANGE"
+    }
   }
 
   server_side_encryption {
@@ -700,15 +769,31 @@ resource "aws_dynamodb_table" "monthly_scan_statistics" {
 
   global_secondary_index {
     name            = "ScanTypeAndScanEngine"
-    hash_key        = "ScanType"
-    range_key       = "ScanEngine"
     projection_type = "ALL"
+
+    key_schema {
+      attribute_name = "ScanType"
+      key_type       = "HASH"
+    }
+
+    key_schema {
+      attribute_name = "ScanEngine"
+      key_type       = "RANGE"
+    }
   }
   global_secondary_index {
     name            = "LastRecordDate"
-    hash_key        = "TrackerFlag"
-    range_key       = "Date"
     projection_type = "ALL"
+
+    key_schema {
+      attribute_name = "TrackerFlag"
+      key_type       = "HASH"
+    }
+
+    key_schema {
+      attribute_name = "Date"
+      key_type       = "RANGE"
+    }
   }
 
   server_side_encryption {
@@ -750,16 +835,32 @@ resource "aws_dynamodb_table" "problem_files" {
 
   global_secondary_index {
     name            = "AccountIdAndDateScanned"
-    hash_key        = "AccountId"
-    range_key       = "DateScanned"
     projection_type = "ALL"
+
+    key_schema {
+      attribute_name = "AccountId"
+      key_type       = "HASH"
+    }
+
+    key_schema {
+      attribute_name = "DateScanned"
+      key_type       = "RANGE"
+    }
   }
 
   global_secondary_index {
     name            = "AccountIdResultAndDateScanned"
-    hash_key        = "AccountIdResult"
-    range_key       = "DateScanned"
     projection_type = "ALL"
+
+    key_schema {
+      attribute_name = "AccountIdResult"
+      key_type       = "HASH"
+    }
+
+    key_schema {
+      attribute_name = "DateScanned"
+      key_type       = "RANGE"
+    }
   }
 
   server_side_encryption {
@@ -804,16 +905,32 @@ resource "aws_dynamodb_table" "classification_results" {
 
   global_secondary_index {
     name            = "AccountIdResultTypeAndDateTime"
-    hash_key        = "AccountIdResultType"
-    range_key       = "DateTime"
     projection_type = "ALL"
+
+    key_schema {
+      attribute_name = "AccountIdResultType"
+      key_type       = "HASH"
+    }
+
+    key_schema {
+      attribute_name = "DateTime"
+      key_type       = "RANGE"
+    }
   }
 
   global_secondary_index {
     name            = "AccountIdAndGuid"
-    hash_key        = "AccountId"
-    range_key       = "Guid"
     projection_type = "ALL"
+
+    key_schema {
+      attribute_name = "AccountId"
+      key_type       = "HASH"
+    }
+
+    key_schema {
+      attribute_name = "Guid"
+      key_type       = "RANGE"
+    }
   }
 
   server_side_encryption {
@@ -855,9 +972,17 @@ resource "aws_dynamodb_table" "allowed_infected_files" {
 
   global_secondary_index {
     name            = "ActiveAndDateAdded"
-    hash_key        = "Active"
-    range_key       = "DateAdded"
     projection_type = "ALL"
+
+    key_schema {
+      attribute_name = "Active"
+      key_type       = "HASH"
+    }
+
+    key_schema {
+      attribute_name = "DateAdded"
+      key_type       = "RANGE"
+    }
   }
 
   server_side_encryption {
@@ -931,20 +1056,40 @@ resource "aws_dynamodb_table" "jobs" {
 
   global_secondary_index {
     name            = "Status"
-    hash_key        = "Status"
     projection_type = "ALL"
+
+    key_schema {
+      attribute_name = "Status"
+      key_type       = "HASH"
+    }
   }
   global_secondary_index {
     name            = "TypeAndParentJobId"
-    hash_key        = "Type"
-    range_key       = "ParentJobId"
     projection_type = "ALL"
+
+    key_schema {
+      attribute_name = "Type"
+      key_type       = "HASH"
+    }
+
+    key_schema {
+      attribute_name = "ParentJobId"
+      key_type       = "RANGE"
+    }
   }
   global_secondary_index {
     name            = "TypeAndEndDate"
-    hash_key        = "Type"
-    range_key       = "EndDate"
     projection_type = "ALL"
+
+    key_schema {
+      attribute_name = "Type"
+      key_type       = "HASH"
+    }
+
+    key_schema {
+      attribute_name = "EndDate"
+      key_type       = "RANGE"
+    }
   }
 
   server_side_encryption {
@@ -1045,15 +1190,31 @@ resource "aws_dynamodb_table" "notifications" {
 
   global_secondary_index {
     name            = "AccountIdAndDate"
-    hash_key        = "AccountId"
-    range_key       = "Date"
     projection_type = "ALL"
+
+    key_schema {
+      attribute_name = "AccountId"
+      key_type       = "HASH"
+    }
+
+    key_schema {
+      attribute_name = "Date"
+      key_type       = "RANGE"
+    }
   }
   global_secondary_index {
     name            = "ReadAndDate"
-    hash_key        = "Read"
-    range_key       = "Date"
     projection_type = "ALL"
+
+    key_schema {
+      attribute_name = "Read"
+      key_type       = "HASH"
+    }
+
+    key_schema {
+      attribute_name = "Date"
+      key_type       = "RANGE"
+    }
   }
 
   server_side_encryption {
@@ -1184,9 +1345,17 @@ resource "aws_dynamodb_table" "azure" {
   }
   global_secondary_index {
     name            = "GSI1"
-    hash_key        = "GSI1PK"
-    range_key       = "GSI1SK"
     projection_type = "ALL"
+
+    key_schema {
+      attribute_name = "GSI1PK"
+      key_type       = "HASH"
+    }
+
+    key_schema {
+      attribute_name = "GSI1SK"
+      key_type       = "RANGE"
+    }
   }
   server_side_encryption {
     enabled     = local.use_dynamo_cmk
@@ -1249,9 +1418,17 @@ resource "aws_dynamodb_table" "malware_detection" {
 
   global_secondary_index {
     name            = "GSI1"
-    hash_key        = "GSI1PK"
-    range_key       = "GSI1SK"
     projection_type = "ALL"
+
+    key_schema {
+      attribute_name = "GSI1PK"
+      key_type       = "HASH"
+    }
+
+    key_schema {
+      attribute_name = "GSI1SK"
+      key_type       = "RANGE"
+    }
   }
   server_side_encryption {
     enabled     = local.use_dynamo_cmk
